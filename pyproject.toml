@@ -1,0 +1,20 @@
+[project]
+name = "businessai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.18.5",
+    "nicegui>=3.15.0",
+    "passlib[bcrypt]>=1.7.4",
+    "pydantic>=2.13.4",
+    "pyjwt>=2.13.0",
+    "sqlalchemy>=2.0.51",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+]
