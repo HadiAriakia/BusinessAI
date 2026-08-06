@@ -7,8 +7,8 @@ requires-python = ">=3.12"
 dependencies = [
     "alembic>=1.18.5",
     "nicegui>=3.15.0",
-    "passlib[bcrypt]>=1.7.4",
-    "pydantic>=2.13.4",
+    "pwdlib[argon2]>=0.2",
+    "pydantic[email]>=2.13.4",
     "pyjwt>=2.13.0",
     "sqlalchemy>=2.0.51",
 ]
@@ -16,5 +16,10 @@ dependencies = [
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
+    "jsonschema>=4.23",
     "pytest>=9.1.1",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

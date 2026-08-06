@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.routes import health
+from app.api.routes import auth, health, users
 
 def create_api() -> FastAPI:
     api = FastAPI(
@@ -11,5 +11,7 @@ def create_api() -> FastAPI:
     )
 
     api.include_router(health.router)
+    api.include_router(auth.router)
+    api.include_router(users.router)
 
     return api
