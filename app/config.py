@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 
-
 class Settings:
     def __init__(self, database_url: str=None):
         # getting database url from environment variable or defaulting to sqlite database in the project root directory
