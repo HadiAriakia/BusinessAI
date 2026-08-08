@@ -3,7 +3,7 @@ from sqlalchemy import select
 
 from app.models import User
 from app.security import verify_password
-from tests.conftest import REGISTRATION
+from tests.conftest import REGISTRATION, error_of, failed_field
 
 
 def test_register_returns_201_with_user_and_token(client):
@@ -47,7 +47,8 @@ def test_duplicate_username_is_409(client, registered):
     )
 
     assert response.status_code == 409
-    assert "username" in response.json()["detail"]
+    assert error_of(response)["code"] == "CONFLICT"
+    assert "username" in error_of(response)["message"]
 
 
 def test_duplicate_email_is_409_ignoring_case(client, registered):
@@ -59,7 +60,8 @@ def test_duplicate_email_is_409_ignoring_case(client, registered):
     )
 
     assert response.status_code == 409
-    assert "email" in response.json()["detail"]
+    assert error_of(response)["code"] == "CONFLICT"
+    assert "email" in error_of(response)["message"]
 
 
 @pytest.mark.parametrize(
@@ -75,7 +77,8 @@ def test_invalid_input_is_422_naming_the_field(client, field, value):
     response = client.post("/auth/register", json={**REGISTRATION, field: value})
 
     assert response.status_code == 422
-    assert response.json()["detail"][0]["loc"] == ["body", field]
+    assert error_of(response)["code"] == "VALIDATION_ERROR"
+    assert failed_field(response) == field
 
 
 def test_missing_field_is_422(client):

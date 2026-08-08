@@ -1,6 +1,6 @@
 import pytest
 
-from tests.conftest import BOOKMARK
+from tests.conftest import BOOKMARK, error_of, failed_field
 
 
 def test_create_returns_201_with_the_full_resource(client, auth_header):
@@ -129,7 +129,8 @@ def test_invalid_input_is_422(client, auth_header, field, value):
     )
 
     assert response.status_code == 422
-    assert response.json()["detail"][0]["loc"] == ["body", field]
+    assert error_of(response)["code"] == "VALIDATION_ERROR"
+    assert failed_field(response) == field
 
 
 def test_patch_is_validated_too(client, auth_header, bookmark):

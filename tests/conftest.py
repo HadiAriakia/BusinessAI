@@ -56,6 +56,16 @@ def auth_header(registered):
     return {"Authorization": f"Bearer {registered['token']}"}
 
 
+def error_of(response):
+
+    return response.json()["error"]
+
+
+def failed_field(response):
+    """Which field the validation error names."""
+    return error_of(response)["details"]["field"]
+
+
 BOOKMARK = {
     "url": "https://example.com/article",
     "title": "Great Article",

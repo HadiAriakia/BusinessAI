@@ -1,5 +1,12 @@
 from fastapi import FastAPI
+from app.api.errors import register_error_handlers
 from app.api.routes import auth, bookmarks, health, users
+from app.schemas.errors import ErrorResponse
+
+ERROR_RESPONSES = {
+    422: {"model": ErrorResponse, "description": "Validation failed"},
+    500: {"model": ErrorResponse, "description": "Unexpected server error"},
+}
 
 DESCRIPTION = """
 A personal bookmarks manager.
@@ -35,7 +42,10 @@ def create_api() -> FastAPI:
             "displayRequestDuration": True,
             "tryItOutEnabled": True,
         },
+        responses=ERROR_RESPONSES,
     )
+
+    register_error_handlers(api)
 
     api.include_router(health.router)
     api.include_router(auth.router)
