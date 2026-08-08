@@ -2,7 +2,7 @@ import time
 import jwt
 import pytest
 from app.config import Settings
-from app.tokens import create_access_token
+from app.jwt_tokens import create_access_token
 
 
 def test_protected_route_with_valid_token(client, auth_header, registered):

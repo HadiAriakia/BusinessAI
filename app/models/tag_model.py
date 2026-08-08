@@ -1,10 +1,10 @@
 from sqlalchemy import CheckConstraint, Column, ForeignKey, Index, Integer, String, Table
 from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 
-from app.models.base import Base
+from app.models.declarative_base import Base
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from app.models.bookmark import Bookmark
+    from app.models.bookmark_model import Bookmark
 
 # The many-to-many join between bookmarks and tags:
 

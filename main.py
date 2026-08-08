@@ -1,6 +1,6 @@
 from nicegui import app as nicegui_app
 from nicegui import ui
-from app.api.main import create_api
+from app.api.app_factory import create_api
 from app.web import pages  
 
 nicegui_app.mount("/api", create_api())

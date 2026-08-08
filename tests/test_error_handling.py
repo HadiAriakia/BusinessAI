@@ -7,8 +7,8 @@ from fastapi import Depends
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from app.api.main import create_api
-from app.dependencies import get_session
+from app.api.app_factory import create_api
+from app.session_dependency import get_session
 from app.models import User
 from tests.conftest import BOOKMARK, REGISTRATION, error_of
 

@@ -11,7 +11,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import IntegrityError
 
-from app.schemas import errors
+from app.schemas import error_schemas
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ def register_error_handlers(api: FastAPI) -> None:
 
         return error_response(
             422,
-            errors.VALIDATION_ERROR,
+            error_schemas.VALIDATION_ERROR,
             # Pydantic's msg omits the field name, so prefix it.
             f"{field(first)}: {first['msg']}",
             {
@@ -51,7 +51,7 @@ def register_error_handlers(api: FastAPI) -> None:
     async def http_error(request: Request, exc: HTTPException):
         return error_response(
             exc.status_code,
-            errors.STATUS_TO_CODE.get(exc.status_code, errors.INTERNAL_ERROR),
+            error_schemas.STATUS_TO_CODE.get(exc.status_code, error_schemas.INTERNAL_ERROR),
             str(exc.detail),
             # Keeps WWW-Authenticate on a 401, which RFC 7235 requires.
             headers=exc.headers,
@@ -64,7 +64,7 @@ def register_error_handlers(api: FastAPI) -> None:
         logger.warning("IntegrityError: %s", exc.orig)
         # Vague on purpose — the driver message names tables and columns.
         return error_response(
-            409, errors.CONFLICT, "That value conflicts with an existing record"
+            409, error_schemas.CONFLICT, "That value conflicts with an existing record"
         )
 
     @api.exception_handler(Exception)
@@ -73,5 +73,5 @@ def register_error_handlers(api: FastAPI) -> None:
         # traces leak file paths and query fragments.
         logger.exception("Unhandled error on %s %s", request.method, request.url.path)
         return error_response(
-            500, errors.INTERNAL_ERROR, "An unexpected error occurred"
+            500, error_schemas.INTERNAL_ERROR, "An unexpected error occurred"
         )

@@ -1,4 +1,4 @@
-from app.tokens import decode_access_token
+from app.jwt_tokens import decode_access_token
 from tests.conftest import REGISTRATION
 
 CREDENTIALS = {"email": REGISTRATION["email"], "password": REGISTRATION["password"]}

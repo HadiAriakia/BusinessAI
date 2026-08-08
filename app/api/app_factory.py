@@ -1,7 +1,12 @@
 from fastapi import FastAPI
-from app.api.errors import register_error_handlers
-from app.api.routes import auth, bookmarks, health, users
-from app.schemas.errors import ErrorResponse
+from app.api.error_handlers import register_error_handlers
+from app.api.routes import (
+    auth_routes,
+    bookmark_routes,
+    health_routes,
+    user_routes,
+)
+from app.schemas.error_schemas import ErrorResponse
 
 ERROR_RESPONSES = {
     422: {"model": ErrorResponse, "description": "Validation failed"},
@@ -47,9 +52,9 @@ def create_api() -> FastAPI:
 
     register_error_handlers(api)
 
-    api.include_router(health.router)
-    api.include_router(auth.router)
-    api.include_router(users.router)
-    api.include_router(bookmarks.router)
+    api.include_router(health_routes.router)
+    api.include_router(auth_routes.router)
+    api.include_router(user_routes.router)
+    api.include_router(bookmark_routes.router)
 
     return api

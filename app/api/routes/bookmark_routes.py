@@ -2,13 +2,13 @@ from datetime import date, datetime, time
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
-from app.api.deps import get_current_user
-from app.dependencies import get_session
+from app.api.auth_dependency import get_current_user
+from app.session_dependency import get_session
 from app.models import Bookmark, Tag, User
-from app.schemas.bookmark import BookmarkCreate, BookmarkResponse, BookmarkUpdate
-from app.schemas.stats import StatsResponse
-from app.services.stats import bookmark_stats
-from app.services.tags import get_or_create_tags
+from app.schemas.bookmark_schemas import BookmarkCreate, BookmarkResponse, BookmarkUpdate
+from app.schemas.stats_schemas import StatsResponse
+from app.services.stats_queries import bookmark_stats
+from app.services.tag_service import get_or_create_tags
 
 router = APIRouter(
     prefix="/bookmarks",

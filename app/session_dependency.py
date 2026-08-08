@@ -1,5 +1,5 @@
 
-from app.db import DatabaseConnect
+from app.database import DatabaseConnect
 
 database = DatabaseConnect()
 

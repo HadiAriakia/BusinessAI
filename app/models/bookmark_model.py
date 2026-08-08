@@ -1,12 +1,12 @@
 from datetime import datetime
 from sqlalchemy import CheckConstraint, DateTime, ForeignKey, Index, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.models.base import Base
-from app.models.tag import bookmark_tags
-from app.models.user import User
+from app.models.declarative_base import Base
+from app.models.tag_model import bookmark_tags
+from app.models.user_model import User
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from app.models.tag import Tag
+    from app.models.tag_model import Tag
 
 class Bookmark(Base):
     __tablename__ = "bookmarks"

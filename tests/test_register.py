@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import select
 
 from app.models import User
-from app.security import verify_password
+from app.password_hashing import verify_password
 from tests.conftest import REGISTRATION, error_of, failed_field
 
 

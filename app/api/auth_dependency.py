@@ -2,9 +2,9 @@ import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
-from app.dependencies import get_session
+from app.session_dependency import get_session
 from app.models import User
-from app.tokens import decode_access_token
+from app.jwt_tokens import decode_access_token
 
 bearer_scheme = HTTPBearer(auto_error=False, description="JWT from /auth/login")
 
